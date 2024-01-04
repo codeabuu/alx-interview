@@ -1,4 +1,10 @@
+#!/usr/bin/python3
+"""pascal triangle sol"""
+
+
 def pascal_triangle(n):
+    """lists of ints represented ret"""
+
     if n <= 0:
         return []
 
