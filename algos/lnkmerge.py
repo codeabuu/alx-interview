@@ -15,7 +15,7 @@ def merge(linkedList):
 
     left_half, right_half = split(linkedList)
     left = mergeSort(left_half)
-    right - mergeSort(right_half)
+    right = mergeSort(right_half)
 
     return merge(left, right)
 def split(linkedList):
@@ -37,4 +37,6 @@ def split(linkedList):
         right_half = linkedList()
         right_half.head = mid_node.nextNode
         mide_node.nextNode = None 
+
+        return left_half, right_half
 
