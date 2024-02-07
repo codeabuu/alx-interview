@@ -36,7 +36,50 @@ def split(linkedList):
         left_half = linkedList
         right_half = linkedList()
         right_half.head = mid_node.nextNode
-        mide_node.nextNode = None 
+        mid_node.nextNode = None 
 
         return left_half, right_half
+
+def merge(left, right):
+    '''merges 2 linked lst sorting by data in nodes
+    returns a new merged list
+    '''
+    #create new linked list that contain nodes from
+    #merging left and right
+
+    merged = linkedList()
+
+    merged.add(0)
+    #set current to head of linked list
+    current = merged.head
+
+    #obtain head nodes for left and right linked list
+    left_head = left.head
+    right_head = right.head
+
+    #iterate over left and right until we reach the tail node of either
+
+    while left_head or right_head:
+        if left_head is None:
+            current.nextNode = right_head
+            right_head = right_head.nextNode
+        elif right_head is None:
+            current.nextNode = left_head
+            left_head = left_head.nextNode
+        else:
+            left_data = left_head.data
+            right_data = right_head.data
+
+            if left_data < right_data:
+                current.nextNode = left_head
+                left_head = left_head.nextNode
+            else:
+                current.nextNode = right_head
+                right_head = right_head.nextNode
+         current = current.nextNode
+
+    head = merged.head.nextNode
+    merged.head = head
+    return merged
+
 
