@@ -1,4 +1,4 @@
-from lnk2 import linkedList
+linkedList = __import__('lnk2').linkedList
 
 def merge(linkedList):
     '''
@@ -14,8 +14,8 @@ def merge(linkedList):
         return linkedList
 
     left_half, right_half = split(linkedList)
-    left = merge(left_half)
-    right = merge(right_half)
+    left = merges(left_half)
+    right = merges(right_half)
 
     return merge(left, right)
 def split(linkedList):
@@ -76,7 +76,7 @@ def merges(left, right):
             else:
                 current.nextNode = right_head
                 right_head = right_head.nextNode
-    current = current.nextNode
+        current = current.nextNode
 
     head = merged.head.nextNode
     merged.head = head
