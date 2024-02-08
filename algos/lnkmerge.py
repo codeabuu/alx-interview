@@ -40,7 +40,7 @@ def split(linkedList):
 
         return left_half, right_half
 
-def merge(left, right):
+def merges(left, right):
     '''merges 2 linked lst sorting by data in nodes
     returns a new merged list
     '''
