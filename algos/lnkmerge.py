@@ -14,8 +14,8 @@ def merge(linkedList):
         return linkedList
 
     left_half, right_half = split(linkedList)
-    left = mergeSort(left_half)
-    right = mergeSort(right_half)
+    left = merge(left_half)
+    right = merge(right_half)
 
     return merge(left, right)
 def split(linkedList):
