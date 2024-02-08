@@ -76,10 +76,19 @@ def merge(left, right):
             else:
                 current.nextNode = right_head
                 right_head = right_head.nextNode
-         current = current.nextNode
+    current = current.nextNode
 
     head = merged.head.nextNode
     merged.head = head
     return merged
 
-
+l = linkedList()
+l.add(10)
+l.add(2)
+l.add(5)
+l.add(4)
+l.add(20)
+l.add(19)
+print(l)
+sortedl = merge(l)
+print(sortedl)
