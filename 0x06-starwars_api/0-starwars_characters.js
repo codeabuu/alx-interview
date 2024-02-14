@@ -1,28 +1,25 @@
 #!/usr/bin/node
-
 const request = require('request');
+const API_URL = 'https://swapi-api.hbtn.io/api';
 
-const movieId = process.argv[2]; // Assuming the movie ID is passed as the first positional argument
+if (process.argv.length > 2) {
+  request(`${API_URL}/films/${process.argv[2]}/`, (err, _, body) => {
+    if (err) {
+      console.log(err);
+    }
+    const charactersURL = JSON.parse(body).characters;
+    const charactersName = charactersURL.map(
+      url => new Promise((resolve, reject) => {
+        request(url, (promiseErr, __, charactersReqBody) => {
+          if (promiseErr) {
+            reject(promiseErr);
+          }
+          resolve(JSON.parse(charactersReqBody).name);
+        });
+      }));
 
-const url = `https://swapi.dev/api/films/${movieId}/`;
-
-request(url, (error, response, body) => {
-  if (error) {
-    console.error('Error:', error);
-  } else if (response.statusCode !== 200) {
-    console.error('Status:', response.statusCode);
-  } else {
-    const film = JSON.parse(body);
-    console.log(`Characters in ${film.title}:`);
-    film.characters.forEach((characterUrl) => {
-      request(characterUrl, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-          const character = JSON.parse(body);
-          console.log(character.name);
-        } else {
-          console.error('Error:', error);
-        }
-      });
-    });
-  }
-});
+    Promise.all(charactersName)
+      .then(names => console.log(names.join('\n')))
+      .catch(allErr => console.log(allErr));
+  });
+}
